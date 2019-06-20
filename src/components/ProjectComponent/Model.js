@@ -1,18 +1,82 @@
 import { Modal, Button, Form, Row, Col, Input, Checkbox, DatePicker, TimePicker } from 'antd';
 import React from 'react';
 import react, { Component } from 'react'
-import axios from 'axios'
-
-class home extends Component {
-
-  comp
-}
-
+import axios from 'axios';
 
 function onChange(e) {
   console.log(`checked = ${e.target.checked}`);
 }
 export default class Model extends React.Component {
+  constructor(props) {
+    super(props);
+
+
+    this.setState({
+      projectName: '',
+      type: '',
+      startDate: '',
+      endDate: '',
+      duration: '',
+      status: '',
+      configId: '',
+      visible: false
+    });
+    this.onChangeprojectName = this.onChangeprojectName.bind(this);
+    this.onChangeType = this.onChangeType.bind(this);
+    this.onChangeStartDate = this.onChangeStartDate.bind(this);
+    this.onChangeEndDate = this.onChangeEndDate.bind(this);
+    this.onChangeDuration = this.onChangeDuration.bind(this);
+    this.onChangeStatus = this.onChangeStatus.bind(this);
+    this.onChangeconfigId = this.onChangeconfigId.bind(this);
+
+  };
+
+
+  onChangeprojectName(e) {
+    this.setState({
+      projectName: e.target.value
+    });
+  }
+  onChangeType(e) {
+    this.setState({
+      type: e.target.value
+    })
+  }
+  onChangeStartDate(date, dateString) {
+    //this.setState({startDate: dateString});
+    
+    this.setState(
+      { startDate: dateString },
+      () => console.log(this.state.startDate)
+    );
+
+    console.log(this.state.startDate);
+  }
+  onChangeEndDate(date, dateString) {
+    this.setState(
+      { endDate: dateString },
+      () => console.log(this.state.endDate)
+    );
+
+    console.log(this.state.endDate);
+  }
+  onChangeDuration(e) {
+    this.setState({
+      duration: e.target.value
+    })
+  }
+  onChangeStatus(e) {
+    this.setState({
+      status: e.target.value
+    })
+  }
+  onChangeconfigId(e) {
+    this.setState({
+      configId: e.target.value
+    })
+  }
+
+
   state = {
 
     disabled: true,
@@ -38,8 +102,29 @@ export default class Model extends React.Component {
   };
 
   handleOk = e => {
-    console.log(e);
+
+    e.preventDefault();
+
+    const projectData = {
+      projectName: this.state.projectName,
+      type: this.state.type,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      duration: this.state.duration,
+      status: this.state.status,
+      configId: this.state.configId
+    }
+    axios.post('http://localhost:8081/project_service/createproject', projectData).then(res => console.log(res.data));
+
     this.setState({
+
+      projectName: '',
+      type: '',
+      startDate: '',
+      endDate: '',
+      duration: '',
+      status: '',
+      configId: '',
       visible: false,
     });
   };
@@ -72,7 +157,10 @@ export default class Model extends React.Component {
 
               <Col span={24} style={{ padding: "5px" }}>
                 <Form.Item label="Project Name">
-                  <Input placeholder="ProjectName" />
+                  <Input placeholder="ProjectName"
+                    value={this.state.projectName}
+                    onChange={this.onChangeprojectName}
+                  />
                 </Form.Item>{" "}
               </Col>
             </Row>
@@ -81,7 +169,10 @@ export default class Model extends React.Component {
 
               <Col span={8} style={{ padding: "5px" }}>
                 <Form.Item label="Type">
-                  <Input placeholder="Type" />
+                  <Input placeholder="Type"
+                    value={this.state.type}
+                    onChange={this.onChangeType}
+                  />
                 </Form.Item>{" "}
               </Col>
 
@@ -93,7 +184,8 @@ export default class Model extends React.Component {
 
                   <span style={{ display: 'inline-block', width: '24px', textAlign: 'center' }}></span>
                   <Form.Item style={{ display: 'inline-block', width: 'calc(90% - 12px)' }}>
-                    <DatePicker />
+                    <DatePicker
+                      onChange={this.onChangeStartDate} />
                   </Form.Item>
                 </Form.Item>
               </Col>
@@ -106,7 +198,10 @@ export default class Model extends React.Component {
 
                   <span style={{ display: 'inline-block', width: '24px', textAlign: 'center' }}></span>
                   <Form.Item style={{ display: 'inline-block', width: 'calc(90% - 12px)' }}>
-                    <DatePicker />
+                    <DatePicker
+                      // value={this.state.endDate}
+                      onChange={this.onChangeEndDate}
+                    />
                   </Form.Item>
                 </Form.Item>
               </Col>
@@ -118,20 +213,29 @@ export default class Model extends React.Component {
 
               <Col span={8} style={{ padding: "5px" }}>
                 <Form.Item label="Duration">
-                  <Input placeholder="Duration" />
+                  <Input placeholder="Duration"
+                    value={this.state.duration}
+                    onChange={this.onChangeDuration}
+                  />
                 </Form.Item>{" "}
               </Col>
 
               <Col span={8} style={{ padding: "5px" }}>
                 <Form.Item label="Status">
-                  <Input placeholder="Status" />
+                  <Input placeholder="Status"
+                    value={this.state.status}
+                    onChange={this.onChangeStatus}
+                  />
                 </Form.Item>{" "}
               </Col>
 
 
               <Col span={8} style={{ padding: "5px" }}>
                 <Form.Item label="Config Id">
-                  <Input placeholder="ConfigId" />
+                  <Input placeholder="ConfigId"
+                    value={this.state.configId}
+                    onChange={this.onChangeconfigId}
+                  />
                 </Form.Item>{" "}
               </Col>
             </Row>
@@ -140,7 +244,7 @@ export default class Model extends React.Component {
 
 
 
-            <Row>
+            {/* <Row>
               <Col>
                 <div>
 
@@ -171,7 +275,7 @@ export default class Model extends React.Component {
                 </Form.Item>{" "}
               </Col>
 
-            </Row>
+            </Row> */}
 
           </Form>
 
