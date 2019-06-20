@@ -21,43 +21,63 @@ const data = [
     key: '1',
     projectid: 'pro1',
     projectname: 'project1',
+    type: 'sujan',
+    start: '2019-02-02',
+    end: '2019-02-02',
+    duration: 'find',
+    configId: 'config',
+    status: 'apple',
+
     abbrevation: 'DT',
-    edit:<EditModel />,
-    delete:<Icon type="delete" style={{fontSize:'18px', color:'red'}} ><Popconfirm
-    title="Are you sure delete this task?"
-    onConfirm={confirm}
-    onCancel={cancel}
-    okText="Yes"
-    cancelText="No"
-  >
-    <a href="#">Delete</a>
-  </Popconfirm></Icon>,
-    viewmore:<ViewModel/>
+
+    edit: <EditModel />,
+    delete: <Icon type="delete" style={{ fontSize: '18px', color: 'red' }} ><Popconfirm
+      title="Are you sure delete this task?"
+      onConfirm={confirm}
+      onCancel={cancel}
+      okText="Yes"
+      cancelText="No"
+    >
+      <a href="#">Delete</a>
+    </Popconfirm></Icon>,
+    viewmore: <ViewModel />
   },
   {
     key: '2',
     projectid: 'pro2',
     projectname: 'project2',
+    type: 'sujan',
+    start: '2019-02-02',
+    end: '2019-02-02',
+    duration: 'find',
+    status: 'apple',
+    configId: 'config',
     abbrevation: 'DT',
-    edit:<EditModel />,
-    delete:<Icon type="delete" style={{fontSize:'18px', color:'red'}} />,
-    viewmore:<ViewModel/>
+    edit: <EditModel />,
+    delete: <Icon type="delete" style={{ fontSize: '18px', color: 'red' }} />,
+    viewmore: <ViewModel />
   },
   {
     key: '3',
     projectid: 'pro3',
     projectname: 'project3',
+    type: 'sujan',
+    start: '2019-02-02',
+    end: '2019-02-02',
+    duration: 'find',
+    status: 'apple',
+    configId: 'config',
     abbrevation: 'DT',
-    edit:<EditModel />,
-    delete:<Icon type="delete" style={{fontSize:'18px', color:'red'}} />,
-    viewmore:<ViewModel/>
+    edit: <EditModel />,
+    delete: <Icon type="delete" style={{ fontSize: '18px', color: 'red' }} />,
+    viewmore: <ViewModel />
 
   },
-  
-  
+
+
 ];
 
- export default class App extends React.Component {
+export default class App extends React.Component {
   state = {
     searchText: '',
   };
@@ -129,23 +149,74 @@ const data = [
         dataIndex: 'projectid',
         key: 'projectid',
         width: '20%',
-      
+
+
       },
       {
         title: 'Project Name',
         dataIndex: 'projectname',
         key: 'projectname',
         width: '20%',
-       
+        ...this.getColumnSearchProps('projectname'),
+
+
+      },
+      {
+        title: 'Type ',
+        dataIndex: 'type',
+        key: 'type',
+        width: '20%',
+        ...this.getColumnSearchProps('type'),
+
+
+      },
+
+      {
+        title: 'Start Date',
+        dataIndex: 'start',
+        key: 'start',
+        width: '20%',
+
+      },
+
+      {
+        title: 'End Date',
+        dataIndex: 'end',
+        key: 'end',
+        width: '20%',
+
+      },
+      {
+        title: 'Duration',
+        dataIndex: 'duration',
+        key: 'duration',
+        width: '20%',
+
+      },
+
+      {
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
+        width: '20%',
+
+      },
+
+      {
+        title: 'ConfigId',
+        dataIndex: 'configId',
+        key: 'configId',
+        width: '20%',
+
       },
       {
         title: 'Abbrevation',
         dataIndex: 'abbrevation',
         key: 'Abbrevation',
         width: '20%',
-       
+
       },
-     
+
       {
         title: 'Edit ',
         dataIndex: 'edit',
@@ -157,17 +228,17 @@ const data = [
         dataIndex: 'delete',
         key: 'delete',
         width: '10%',
-        render:(text, record)=>(
+        render: (text, record) => (
           <span>
             <Popconfirm
-    title="Are you sure delete this task?"
-    onConfirm={confirm}
-    onCancel={cancel}
-    okText="Yes"
-    cancelText="No"
-  >
-    <a href="#"><Icon type="delete" style={{fontSize:'18px', color:'red'}} /></a>
-  </Popconfirm>
+              title="Are you sure delete this task?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <a href="#"><Icon type="delete" style={{ fontSize: '18px', color: 'red' }} /></a>
+            </Popconfirm>
           </span>
         )
       },
