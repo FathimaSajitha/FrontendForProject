@@ -1,6 +1,6 @@
 import { Modal, Button, Form, Row, Col, Input, Checkbox, DatePicker, TimePicker } from 'antd';
 import React from 'react';
-import react, { Component } from 'react'
+import react, { Component } from 'react';
 import axios from 'axios';
 
 function onChange(e) {
@@ -114,7 +114,7 @@ export default class Model extends React.Component {
       status: this.state.status,
       configId: this.state.configId
     }
-    axios.post('http://localhost:8081/project_service/createproject', projectData).then(res => console.log(res.data));
+    axios.post('http://localhost:8080/project_service/createproject', projectData).then(res => console.log(res.data));
 
     this.setState({
 
